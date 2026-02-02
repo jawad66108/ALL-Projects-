@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Route Finder</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+    }
+
+    .container {
+      background: #ffffff;
+      width: 520px;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #1e3c72;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #1e90ff;
+      color: white;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #1565c0;
+    }
+
+    pre {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f4f6f8;
+      border-radius: 8px;
+      font-size: 14px;
+      white-space: pre-wrap;
+      border-left: 5px solid #1e90ff;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 12px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>🚗 Intelligent Route Finder</h2>
+
+    <button onclick="loadResult()">Show Latest Result</button>
+
+    <pre id="output">Run the C++ program, then click the button.</pre>
+
+    <footer>
+      DSA Project • BFS | DFS | UCS | Dijkstra | A*
+    </footer>
+  </div>
+
+  <script>
+    function loadResult() {
+      fetch("result.json?" + new Date().getTime()) // cache bypass
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("output").textContent =
+            "Algorithm: " + data.algorithm + "\n" +
+            "Source: " + data.source + "\n" +
+            "Destination: " + data.destination + "\n\n" +
+            "Path:\n" + data.path + "\n\n" +
+            "Cost: " + data.cost;
+        })
+        .catch(() => {
+          document.getElementById("output").textContent =
+            "Run the C++ program first.";
+        });
+    }
+  </script>
+
+</body>
+</html>
